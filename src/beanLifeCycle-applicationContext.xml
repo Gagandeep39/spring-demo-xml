@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- loading a properties file from which values will be fetched -->
+	<context:property-placeholder
+		location="classpath:sport.properties" />
+
+
+	<!-- Define dependency -->
+	<bean id="fortuneService"
+		class="com.spring.gagan.HappyFortuneService"></bean>
+
+	<!-- Condtructor dependency Injection -->
+	<!-- Here we are providing fortuneservice object to baseball coach class -->
+	<!-- It is transalted as -->
+	<!-- FortuneService service = new FortuneService() -->
+	<!-- Coach coach = new Coach(service); -->
+	<!-- <bean id="myCoach" class="com.spring.gagan.BaseballCoach"> Inject Constructor 
+		dependency <constructor-arg ref="fortuneService"></constructor-arg> </bean> -->
+
+	<!-- Scope= protoype will create a differernt objec with every call -->
+	<bean id="myCoach" class="com.spring.gagan.TrackCoach"
+		scope="prototype" init-method="initMethod"
+		destroy-method="destroyMethod">
+		<!-- Inject Constructor dependency -->
+		<constructor-arg ref="fortuneService"></constructor-arg>
+	</bean>
+
+
+
+
+</beans>
